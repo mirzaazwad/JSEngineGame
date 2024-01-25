@@ -1,0 +1,20 @@
+.inner {
+    background-color:transparent;
+    width:180px;
+    height:100px;
+    border-radius:50%;
+    box-shadow: 0 0 8px lightblue, inset 0 0 20px lightblue;
+    background-color: lightblue;
+    -webkit-animation: pulse 2s linear 1s infinite;
+    transform: rotate3d(1, 2, -1, 30deg);
+  }
+  .inner p {
+    display:block;
+    text-align: center;
+    line-height: 100px;
+    font-family:sans-serif;
+    font-weight:100;
+    font-size:24px;
+    color: whitesmoke;
+    text-shadow: 0 0 4px lightblue;
+  }
