@@ -1,5 +1,6 @@
 var robot = document.getElementsByClassName("robot")[0];
 var step = 50;
+var enterFound=false;
 
 function max(a,b){
     if(a>b){
@@ -28,34 +29,48 @@ document.addEventListener("keydown",async function (e) {
             start.style.transition="opacity 1s ease";
             typewriter.style.opacity = "0";
             typewriter.style.transition="opacity 1s ease";
+            enterFound=true;
             break;
         case "ArrowLeft":
+            if(!enterFound){
+                return;
+            }
             horizontal -= step;
             var instructions = document.getElementById('instructions');
             instructions.style.opacity = "0";
             instructions.style.transition="opacity 1s ease";
             break;
         case "ArrowRight":
+            if(!enterFound){
+                return;
+            }
             horizontal += step;
             var instructions = document.getElementById('instructions');
             instructions.style.opacity = "0";
             instructions.style.transition="opacity 1s ease";
             break;
         case "ArrowUp":
+            if(!enterFound){
+                return;
+            }
             vertical -= step;
             var instructions = document.getElementById('instructions');
             instructions.style.opacity = "0";
             instructions.style.transition="opacity 1s ease";
             break;
         case "ArrowDown":
+            if(!enterFound){
+                return;
+            }
             vertical += step;
             var instructions = document.getElementById('instructions');
             instructions.style.opacity = "0";
             instructions.style.transition="opacity 1s ease";
             break;
     }
-
-
+    if(!enterFound){
+        return;
+    }
     var notMovable=false;
     robot.childNodes.forEach(function (child) {
         if (child instanceof HTMLElement) {
@@ -63,8 +78,6 @@ document.addEventListener("keydown",async function (e) {
             var top = parseFloat(getComputedStyle(child).top) + vertical;
             var right = parseFloat(getComputedStyle(child).right) - horizontal;
             if(child.classList.contains('head')){
-                console.log(window.innerWidth);
-                console.log(right);
                 if(top<0 || left<0 || abs(right)>window.innerWidth){
                     notMovable=true;
                     return;
