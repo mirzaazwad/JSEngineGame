@@ -1,91 +1,83 @@
 var robot = document.getElementsByClassName("robot")[0];
 var step = 50;
-var enterFound=false;
+var enterFound = false;
 
-function max(a,b){
-    if(a>b){
+function max(a, b) {
+    if (a > b) {
         return a;
     }
     return b;
 }
 
-function abs(a){
-    if(a<0){
+function abs(a) {
+    if (a < 0) {
         return -a;
     }
     return a;
 
 }
 
-document.addEventListener("keydown",async function (e) {
+
+document.addEventListener("keydown", async function (e) {
     var vertical = 0;
     var horizontal = 0;
 
     switch (e.key) {
         case "Enter":
             var start = document.getElementsByClassName('start')[0];
-            var typewriter=document.getElementsByClassName('typewriter')[0];
+            var typewriter = document.getElementsByClassName('typewriter')[0];
             start.style.opacity = "0";
-            start.style.transition="opacity 1s ease";
+            start.style.transition = "opacity 1s ease";
             typewriter.style.opacity = "0";
-            typewriter.style.transition="opacity 1s ease";
-            enterFound=true;
+            typewriter.style.transition = "opacity 1s ease";
+            var instructions = document.getElementById('instructions');
+            instructions.style.opacity = "0";
+            instructions.style.transition = "opacity 1s ease";
+            enterFound = true;
             break;
         case "ArrowLeft":
-            if(!enterFound){
+            if (!enterFound) {
                 return;
             }
             horizontal -= step;
-            var instructions = document.getElementById('instructions');
-            instructions.style.opacity = "0";
-            instructions.style.transition="opacity 1s ease";
             break;
         case "ArrowRight":
-            if(!enterFound){
+            if (!enterFound) {
                 return;
             }
             horizontal += step;
-            var instructions = document.getElementById('instructions');
-            instructions.style.opacity = "0";
-            instructions.style.transition="opacity 1s ease";
             break;
         case "ArrowUp":
-            if(!enterFound){
+            if (!enterFound) {
                 return;
             }
             vertical -= step;
-            var instructions = document.getElementById('instructions');
-            instructions.style.opacity = "0";
-            instructions.style.transition="opacity 1s ease";
             break;
         case "ArrowDown":
-            if(!enterFound){
+            if (!enterFound) {
                 return;
             }
             vertical += step;
-            var instructions = document.getElementById('instructions');
-            instructions.style.opacity = "0";
-            instructions.style.transition="opacity 1s ease";
             break;
     }
-    if(!enterFound){
+    if (!enterFound) {
         return;
     }
-    var notMovable=false;
+    var notMovable = false;
     robot.childNodes.forEach(function (child) {
         if (child instanceof HTMLElement) {
             var left = parseFloat(getComputedStyle(child).left) + horizontal;
             var top = parseFloat(getComputedStyle(child).top) + vertical;
             var right = parseFloat(getComputedStyle(child).right) - horizontal;
-            if(child.classList.contains('head')){
-                if(top<0 || left<0 || abs(right)>window.innerWidth){
-                    notMovable=true;
+            if (child.classList.contains('head')) {
+                if (top < 0 || left < 0 || abs(right) > window.innerWidth) {
+                    notMovable = true;
                     return;
                 }
             }
         }
     });
-    if(notMovable){
+    if (notMovable) {
         return;
     }
     robot.childNodes.forEach(function (child) {
@@ -116,4 +108,75 @@ async function moveAndCenter() {
         left: centerX - window.innerWidth / 2,
         behavior: "auto"
     });
+}
+
+var startX =null;
+var startY = null;
+document.addEventListener("touchstart", function (e) {
+    var touch = e.touches[0];
+    if (touch) {
+        var start = document.getElementsByClassName('start')[0];
+        var typewriter = document.getElementsByClassName('typewriter')[0];
+        var instructions = document.getElementById('instructions');
+
+        start.style.opacity = "0";
+        start.style.transition = "opacity 1s ease";
+        typewriter.style.opacity = "0";
+        typewriter.style.transition = "opacity 1s ease";
+        instructions.style.opacity = "0";
+        instructions.style.transition = "opacity 1s ease";
+        enterFound = true;
+        startX = touch.clientX;
+        startY = touch.clientY;
+    }
+
+    if (!enterFound) {
+        return;
+    }
+});
+
+
+document.addEventListener("touchmove", handleTouchMove);
+
+async function handleTouchMove(e) {
+    var moveX = e.touches[0].clientX - startX;
+    var moveY = e.touches[0].clientY - startY;
+    var vertical = 0;
+    var horizontal = 0;
+    horizontal += moveX*0.01;
+    vertical += moveY*0.01;
+    var notMovable=false;
+    robot.childNodes.forEach(function (child) {
+        if (child instanceof HTMLElement) {
+            var left = parseFloat(getComputedStyle(child).left) + horizontal;
+            var top = parseFloat(getComputedStyle(child).top) + vertical;
+            var right = parseFloat(getComputedStyle(child).right) - horizontal;
+            if (child.classList.contains('head')) {
+                if (top < 0 || left < 0 || abs(right) > window.innerWidth) {
+                    notMovable = true;
+                    return;
+                }
+            }
+        }
+    });
+    if (notMovable) {
+        console.log("Comes Here");
+        return;
+    }
+    robot.childNodes.forEach(function (child) {
+        if (child instanceof HTMLElement) {
+            var left = parseFloat(getComputedStyle(child).left) + horizontal;
+            var right = parseFloat(getComputedStyle(child).right) - horizontal;
+            var top = parseFloat(getComputedStyle(child).top) + vertical;
+            var bottom = parseFloat(getComputedStyle(child).bottom) - vertical;
+            child.style.left = left + "px";
+            child.style.top = top + "px";
+            child.style.right = right + "px";
+            child.style.bottom = bottom + "px";
+        }
+    });
+    if (notMovable) {
+        return;
+    }
+    await moveAndCenter();
 }

@@ -58,6 +58,7 @@ body {
     margin: auto;
     font-family: "Roboto Mono", monospace;
     text-align: center;
+    font-weight: bolder;
     height: 120;
     width: 115;
     z-index: 3;
