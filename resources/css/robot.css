@@ -16,7 +16,7 @@ body {
 .face {
     position: absolute;
     top: 0;
-    left: 40;
+    left: 45;
     right: 0;
     bottom: 150;
     margin: auto;
@@ -34,7 +34,7 @@ body {
 .head {
     position: absolute;
     top: 0;
-    left: 40;
+    left: 45;
     right: 0;
     bottom: 150;
     margin: auto;
@@ -110,7 +110,7 @@ body {
 .eye1 {
     position: absolute;
     top: 0;
-    left: 40;
+    left: 45;
     right: 25;
     bottom: 150;
     margin: auto;
@@ -128,7 +128,7 @@ body {
 .eye2 {
     position: absolute;
     top: 0;
-    left: 55;
+    left: 60;
     right: 0;
     bottom: 150;
     margin: auto;

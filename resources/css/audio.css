@@ -1,0 +1,38 @@
+.volume-container {
+    position: relative;
+    width: 200px;
+    margin: 20px;
+    z-index: -5;
+  }
+
+  .volume-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: -5;
+  }
+
+  .audio-settings{
+    position: fixed;
+    margin-right: 2%;
+    margin-left: 90%;
+    display: inline-block;
+    color: whitesmoke;
+    font-size: 69px;
+    background-color: transparent;
+    border: none;
+    
+}
+
+.volume-button {
+    all:unset;
+    cursor: pointer;
+    margin-right: 2%;
+    margin-top: 10%;
+    margin-left: auto;
+    display: inline-block;
+    color: whitesmoke;
+    font-size: 69px;
+}

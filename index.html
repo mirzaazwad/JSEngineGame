@@ -8,10 +8,27 @@
 	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
 		rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="resources\css\welcome.css">
+	<link rel="stylesheet" type="text/css" href="resources\css\audio.css">
+
+	<title>Mirza Mohammad Azwad-CV</title>
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
-	<div class="holo-border"></div>
+	<div class="audio-settings">
+		<button id="volumeButton"  class="volume-button"><ion-icon name="volume-mute" id="volumeIcon"></ion-icon></button>
+		<div class="volume-container">
+			<div class="volume-bar">
+			  <div class="volume-progress" id="volumeProgress"></div>
+			</div>
+			<input type="range" id="volumeRange" min="0" max="1" step="0.01" value="1" style="display: none;" oninput="adjustVolume(this.value)">
+		  </div>
+	</div>
+	<audio id="backgroundAudio" loop autoplay>
+		<source src="./assets/robot.mp3" type="audio/mp3">
+		Your browser does not support the audio tag.
+	  </audio>
 	<div class="robot">
 		<div class="face"></div>
 		<div class="head"></div>
